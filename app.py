@@ -92,24 +92,24 @@ if page == "🏠 Home":
     )
 
     st.markdown("""
-### 🌍 Project Overview
+    ### 🌍 Project Overview
 
-This dashboard analyzes NASA's Near-Earth Object (NEO) data.
+    This dashboard analyzes NASA's Near-Earth Object (NEO) data.
 
-### Features
+    ### Features
 
-- ☄️ Asteroid Filtering
-- 📊 SQL Analytics
-- 📈 Interactive Charts
-- 💾 Download Results
-- 🛰️ NASA NeoWs Dataset
-""")
+    - ☄️ Asteroid Filtering
+    - 📊 SQL Analytics
+    - 📈 Interactive Charts
+    - 💾 Download Results
+    - 🛰️ NASA NeoWs Dataset
+    """)
 
 # =====================================================
 # FILTER PAGE
 # =====================================================
 
-if page == "Filter Criteria":
+elif page == "🔍 Filter Criteria":
 
     col1, col2, col3 = st.columns(3)
 
@@ -208,7 +208,7 @@ if page == "Filter Criteria":
 # QUERY PAGE
 # =====================================================
 
-if page == "SQL Queries":
+elif page == "📊 SQL Queries":
 
     st.subheader("SQL Queries")
 
@@ -216,217 +216,217 @@ if page == "SQL Queries":
     
     st.subheader("📊 SQL Analysis")
 
-queries = {
+    queries = {
 
-"1. Count how many times each asteroid has approached Earth":
-"""
-SELECT
-a.name,
-COUNT(*) AS Total_Approaches
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-GROUP BY a.id,a.name
-ORDER BY Total_Approaches DESC;
-""",
+    "1. Count how many times each asteroid has approached Earth":
+    """
+    SELECT
+    a.name,
+    COUNT(*) AS Total_Approaches
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    GROUP BY a.id,a.name
+    ORDER BY Total_Approaches DESC;
+    """,
 
-"2. Average velocity of each asteroid":
-"""
-SELECT
-a.name,
-ROUND(AVG(c.relative_velocity_kmph),2) AS Average_Velocity
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-GROUP BY a.id,a.name
-ORDER BY Average_Velocity DESC;
-""",
+    "2. Average velocity of each asteroid":
+    """
+    SELECT
+    a.name,
+    ROUND(AVG(c.relative_velocity_kmph),2) AS Average_Velocity
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    GROUP BY a.id,a.name
+    ORDER BY Average_Velocity DESC;
+    """,
 
-"3. Top 10 Fastest Asteroids":
-"""
-SELECT
-a.name,
-MAX(c.relative_velocity_kmph) AS Maximum_Velocity
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-GROUP BY a.id,a.name
-ORDER BY Maximum_Velocity DESC
-LIMIT 10;
-""",
+    "3. Top 10 Fastest Asteroids":
+    """
+    SELECT
+    a.name,
+    MAX(c.relative_velocity_kmph) AS Maximum_Velocity
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    GROUP BY a.id,a.name
+    ORDER BY Maximum_Velocity DESC
+    LIMIT 10;
+    """,
 
-"4. Hazardous Asteroids Approached More Than 3 Times":
-"""
-SELECT
-a.name,
-COUNT(*) AS Total_Approaches
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-WHERE a.is_potentially_hazardous_asteroid=True
-GROUP BY a.id,a.name
-HAVING COUNT(*)>3;
-""",
+    "4. Hazardous Asteroids Approached More Than 3 Times":
+    """
+    SELECT
+    a.name,
+    COUNT(*) AS Total_Approaches
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    WHERE a.is_potentially_hazardous_asteroid=True
+    GROUP BY a.id,a.name
+    HAVING COUNT(*)>3;
+    """,
 
-"5. Month With Most Asteroid Approaches":
-"""
-SELECT
-MONTHNAME(close_approach_date) AS Month,
-COUNT(*) AS Total
-FROM close_approach
-GROUP BY MONTH(close_approach_date),MONTHNAME(close_approach_date)
-ORDER BY Total DESC
-LIMIT 1;
-""",
+    "5. Month With Most Asteroid Approaches":
+    """
+    SELECT
+    MONTHNAME(close_approach_date) AS Month,
+    COUNT(*) AS Total
+    FROM close_approach
+    GROUP BY MONTH(close_approach_date),MONTHNAME(close_approach_date)
+    ORDER BY Total DESC
+    LIMIT 1;
+    """,
 
-"6. Fastest Ever Approach Speed":
-"""
-SELECT
-a.name,
-c.relative_velocity_kmph
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-ORDER BY c.relative_velocity_kmph DESC
-LIMIT 1;
-""",
+    "6. Fastest Ever Approach Speed":
+    """
+    SELECT
+    a.name,
+    c.relative_velocity_kmph
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    ORDER BY c.relative_velocity_kmph DESC
+    LIMIT 1;
+    """,
 
-"7. Largest Asteroids":
-"""
-SELECT
-name,
-estimated_diameter_max_km
-FROM asteroids
-ORDER BY estimated_diameter_max_km DESC;
-""",
+    "7. Largest Asteroids":
+    """
+    SELECT
+    name,
+    estimated_diameter_max_km
+    FROM asteroids
+    ORDER BY estimated_diameter_max_km DESC;
+    """,
 
-"8. Closest Approach Getting Nearer":
-"""
-SELECT
-a.name,
-c.close_approach_date,
-c.miss_distance_km
-FROM asteroids a
-JOIN close_approach c
-ON a.id=c.neo_reference_id
-ORDER BY a.name,c.close_approach_date;
-"""
-"9. Closest Approach of Every Asteroid"
-"""
-SELECT
+    "8. Closest Approach Getting Nearer":
+    """
+    SELECT
     a.name,
     c.close_approach_date,
     c.miss_distance_km
-FROM asteroids a
-JOIN close_approach c
-ON a.id = c.neo_reference_id
-WHERE c.miss_distance_km =
-(
-SELECT MIN(c2.miss_distance_km)
-FROM close_approach c2
-WHERE c2.neo_reference_id = a.id
-)
-ORDER BY c.miss_distance_km;
-""",
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id=c.neo_reference_id
+    ORDER BY a.name,c.close_approach_date;
+    """
+    "9. Closest Approach of Every Asteroid"
+    """
+    SELECT
+        a.name,
+        c.close_approach_date,
+        c.miss_distance_km
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id = c.neo_reference_id
+    WHERE c.miss_distance_km =
+    (
+    SELECT MIN(c2.miss_distance_km)
+    FROM close_approach c2
+    WHERE c2.neo_reference_id = a.id
+    )
+    ORDER BY c.miss_distance_km;
+    """,
 
-"10. Asteroids with Velocity > 50,000 km/h":
-"""
-SELECT DISTINCT
-    a.name,
-    c.relative_velocity_kmph
-FROM asteroids a
-JOIN close_approach c
-ON a.id = c.neo_reference_id
-WHERE c.relative_velocity_kmph > 50000
-ORDER BY c.relative_velocity_kmph DESC;
-""",
+    "10. Asteroids with Velocity > 50,000 km/h":
+    """
+    SELECT DISTINCT
+        a.name,
+        c.relative_velocity_kmph
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id = c.neo_reference_id
+    WHERE c.relative_velocity_kmph > 50000
+    ORDER BY c.relative_velocity_kmph DESC;
+    """,
 
-"11. Number of Approaches Per Month":
-"""
-SELECT
-    MONTHNAME(close_approach_date) AS Month,
-    COUNT(*) AS Total_Approaches
-FROM close_approach
-GROUP BY MONTH(close_approach_date),
-MONTHNAME(close_approach_date)
-ORDER BY MONTH(close_approach_date);
-""",
+    "11. Number of Approaches Per Month":
+    """
+    SELECT
+        MONTHNAME(close_approach_date) AS Month,
+        COUNT(*) AS Total_Approaches
+    FROM close_approach
+    GROUP BY MONTH(close_approach_date),
+    MONTHNAME(close_approach_date)
+    ORDER BY MONTH(close_approach_date);
+    """,
 
-"12. Brightest Asteroid":
-"""
-SELECT
-    name,
-    absolute_magnitude_h
-FROM asteroids
-ORDER BY absolute_magnitude_h ASC
-LIMIT 1;
-""",
+    "12. Brightest Asteroid":
+    """
+    SELECT
+        name,
+        absolute_magnitude_h
+    FROM asteroids
+    ORDER BY absolute_magnitude_h ASC
+    LIMIT 1;
+    """,
 
-"13. Hazardous vs Non-Hazardous":
-"""
-SELECT
-CASE
-WHEN is_potentially_hazardous_asteroid = TRUE
-THEN 'Hazardous'
-ELSE 'Non-Hazardous'
-END AS Category,
-COUNT(*) AS Total
-FROM asteroids
-GROUP BY is_potentially_hazardous_asteroid;
-""",
+    "13. Hazardous vs Non-Hazardous":
+    """
+    SELECT
+    CASE
+    WHEN is_potentially_hazardous_asteroid = TRUE
+    THEN 'Hazardous'
+    ELSE 'Non-Hazardous'
+    END AS Category,
+    COUNT(*) AS Total
+    FROM asteroids
+    GROUP BY is_potentially_hazardous_asteroid;
+    """,
 
-"14. Passed Closer Than Moon (<1 LD)":
-"""
-SELECT
-    a.name,
-    c.close_approach_date,
-    c.miss_distance_lunar
-FROM asteroids a
-JOIN close_approach c
-ON a.id = c.neo_reference_id
-WHERE c.miss_distance_lunar < 1
-ORDER BY c.miss_distance_lunar;
-""",
+    "14. Passed Closer Than Moon (<1 LD)":
+    """
+    SELECT
+        a.name,
+        c.close_approach_date,
+        c.miss_distance_lunar
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id = c.neo_reference_id
+    WHERE c.miss_distance_lunar < 1
+    ORDER BY c.miss_distance_lunar;
+    """,
 
-"15. Came Within 0.05 AU":
-"""
-SELECT
-    a.name,
-    c.close_approach_date,
-    c.astronomical
-FROM asteroids a
-JOIN close_approach c
-ON a.id = c.neo_reference_id
-WHERE c.astronomical < 0.05
-ORDER BY c.astronomical;
-"""
-}
+    "15. Came Within 0.05 AU":
+    """
+    SELECT
+        a.name,
+        c.close_approach_date,
+        c.astronomical
+    FROM asteroids a
+    JOIN close_approach c
+    ON a.id = c.neo_reference_id
+    WHERE c.astronomical < 0.05
+    ORDER BY c.astronomical;
+    """
+    }
 
-selected_query = st.selectbox(
-    "Choose SQL Query",
-    list(queries.keys())
-)
-
-if st.button("▶ Run Query"):
-
-    df = run_query(queries[selected_query])
-
-    st.success("Query Executed Successfully")
-
-    st.dataframe(
-        df,
-        use_container_width=True
+    selected_query = st.selectbox(
+        "Choose SQL Query",
+        list(queries.keys())
     )
 
-    csv = df.to_csv(index=False).encode("utf-8")
+    if st.button("▶ Run Query"):
 
-    st.download_button(
-        "⬇ Download CSV",
-        csv,
-        "query_result.csv",
-        "text/csv"
+        df = run_query(queries[selected_query])
+
+        st.success("Query Executed Successfully")
+
+        st.dataframe(
+            df,
+            use_container_width=True
+        )
+
+        csv = df.to_csv(index=False).encode("utf-8")
+
+        st.download_button(
+            "⬇ Download CSV",
+            csv,
+            "query_result.csv",
+            "text/csv"
     )
-if page == "🙏 Thank You":
+elif page == "🙏 Thank You":
 
     st.balloons()
 
