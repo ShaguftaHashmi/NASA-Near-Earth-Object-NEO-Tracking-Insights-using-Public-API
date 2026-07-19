@@ -444,7 +444,7 @@ elif page == "🙏 Thank You":
     <br>
 
     <h4>
-    Submitted by
+    Project by
     </h4>
 
     <h2 style='color:#4CAF50;'>
