@@ -1,7 +1,5 @@
 # NASA-Near-Earth-Object-NEO-Tracking-Insights-using-Public-API
 
-# 🚀 NASA Near-Earth Object (NEO) Tracker
-
 ## 📌 Project Overview
 
 The **NASA Near-Earth Object (NEO) Tracker** is a data analytics dashboard developed using **Python, MySQL, and Streamlit**. The application fetches asteroid data from NASA's NeoWs API, stores it in a MySQL database, performs SQL-based analysis, and provides an interactive dashboard for filtering and visualizing asteroid information.
@@ -223,7 +221,7 @@ The dashboard includes:
 
 ## 👩‍💻 Author
 
-**Shaguftha Hashmi**
+**Shagufta Hashmi**
 
 ---
 
