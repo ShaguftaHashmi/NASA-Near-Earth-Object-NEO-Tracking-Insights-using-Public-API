@@ -448,7 +448,7 @@ elif page == "🙏 Thank You":
     </h4>
 
     <h2 style='color:#4CAF50;'>
-    Shagufta Hashmi
+    Shagufta Hashmi [Komal]
     </h2>
 
     <br>
